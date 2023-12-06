@@ -1,7 +1,12 @@
-select * from help;
+SELECT
+    *
+FROM
+    help;
 
-
-SELECT * from redo_log;
+SELECT
+    *
+FROM
+    redo_log;
 
 -- SQL의 주석 : 한 줄 주석
 /*
@@ -17,15 +22,19 @@ temporary tablespace TEMP;
 
 --  2. 계정에 권한 부여하기 : connnect(접속), resource(객체 생성, 수정, 삭제)
 
-grant resource, connect to C##HR4;
+grant resource,
+connect to
+
+c##hr;
 
 --  3. 테이블 스페이스에서 사용량 할당.
 
-alter user c##HR4 quota unlimited on USERS;
+ALTER USER c##hr
+    QUOTA UNLIMITED ON users;
 
 -- 4. 계정 삭제
 
-drop user C##HR4 CASCADE;
+DROP USER c##hr4 CASCADE;
 
 
 

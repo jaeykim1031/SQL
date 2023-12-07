@@ -41,7 +41,8 @@ SELECT eno 사원번호, ename 사원명, job 직책, manager 직속상관, hiredate 입사일,
 -- 테이블 구조 확인
 -- desc 테이블명, 실제 컬럼명, null 허용 여부, 자료형 (number: 정수, 실수 varchar2 : 문자열)
 
-desc employee; -- insert시 컬럼의 자료형, NULL 허용 여부 확인 후 값을 넣음 
+
+DESC employee; /* 삽입시 컬럼의 자료형, NULL 허용 여부 확인 후 값을 넣음 */
 
 SELECT * from employee;
 
@@ -67,7 +68,7 @@ from employee;
 -- number(7.2) : 실수     - 전체 7자리, 소수점 이하 2자리
 
 select * from employee;
-DESCRIBE employee; 
+DESC employee; 
 
 SELECT ename, salary, salary + salary 합연산 , salary * salary 곱연산 , salary * 0.1 "월급의10%"
 from employee;

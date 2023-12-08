@@ -57,7 +57,7 @@ select eno 사원번호, ename 사원명, salary 월급, commission 보너스,
         salary * 12 + commission 연봉
 from employee;
 
--- nvl (컬럼명, 0) : null 처리 함수, 컬럼의 값 중 null을 0으로 변환하는 함수
+-- nvl (컬럼명, ' ') : null 처리 함수, 컬럼의 값 중 null을 ' '으로 변환하는 함수
     
 select eno 사원번호, ename 사원명, salary 월급, commission 보너스,
         nvl (commission, 0) 널처리, salary * 12 + nvl (commission, 0) 연봉

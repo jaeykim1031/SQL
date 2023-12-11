@@ -17,7 +17,7 @@ group by dno;
 -- 3. SMITH 과 동일한 부서에 근무하는 사원들 의 월급의 합계와 평균과 최대값, 최소값을 구하시오. 
 select dno, sum (salary), round (avg(salary) , 2), max(salary), min(salary)
 from employee
-where job = (select job 
+where dno = (select dno 
             from employee
             where ename = 'SMITH')   -- 사무원 정보 
 group by dno;

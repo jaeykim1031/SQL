@@ -130,12 +130,14 @@ select * from order10;
      
 ---------------------------------------------------------------------------    
      
-select m.name, m.email, m.zipcode , pro_name , pro_price
+select m.name, m.email, si_do , pro_name , pro_price
 from order10 o 
 join product10 p 
     on o.pro_id = p.pro_id
-join member10 m
+join member10 m 
     on o.m_id = m.m_id
+join zipcode10 z 
+    on m.zipcode = z.zipcode
 where o.ord_id = 4713;
 
 

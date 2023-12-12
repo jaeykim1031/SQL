@@ -235,6 +235,158 @@ from emp01 e join dept01 d
 on e.dno = d.dno
 where job = 'MANAGER';
 
+/*
+    VIEW : 가상의 테이블. 값을 가지지 않고 코드만 가짐
+        1. 실제 테이블의 특정 컬럼만 출력할 때 (보안)
+        2. 복잡한 쿼리를 만들어서 실행 - 복잡한 Join 쿼리를 단순화 
+
+*/
+drop table emp02 CASCADE CONSTRAINTS;
+
+create table EMP02
+as 
+select eno, ename, salary, commission , job, hiredate, dno
+from employee
+where salary> 1500;
+
+select * from emp02;
+
+CREATE table dept02
+as 
+select * from department;
+
+-- 기존의 원본 테이블 : employee -> emp01 / department -> dept01
+    -- 필드명, 값만 복사 
+    -- 컬럼에 부여된 제약 조건은 복사되지 않음 - alter table을 통해 제약 조건 복사 
+    
+select * from user_constraints where table_name in ('EMPLOYEE', 'DEPARTMENT');   
+select * from user_constraints where table_name in ('EMP02', 'DEPT02'); 
+
+-- DEPT02 테이블의 dno(PK)
+-- EMP02 테이블의 eno(PK), dno(FK) -> dept02 (dno)
+
+alter table DEPT02
+add CONSTRAINT PK_DEPT02_DNO PRIMARY key (dno);
+
+alter table EMP02
+add CONSTRAINT PK_EMP02_ENO PRIMARY key (eno);
+
+alter table EMP02
+add CONSTRAINT FK_EMP02_DNO FOREIGN key (dno) REFERENCES dept02(dno);
+
+-- VIEW 생성 
+    -- as 다음에 select 코드 가지고 있음 
+
+
+create view v_emp02
+as
+select ename, job, dno          -- 실제 테이블의 값을 가지는 것이 아닌 실행 코드만 소유 값 없음 
+from emp02;
+
+select * from v_emp02;  
+/*
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "C##HR"."V_EMP02" ("ENAME", "JOB", "DNO") AS 
+  select ename, job,dno
+from emp02;
+*/
+
+-- 데이터 사전 : user_테이블 <- 시스템의 정보가 저장되어있는 테이블
+
+select * from user_views; 
+
+-- 사용의 편의성 : 복잡한 구문을 view로 생성해서 실행
+
+--    두 테이블을 조인해서 월급이 2500 이상인 사원 정보 출력
+create view v_join
+as
+SELECT ename, job , salary, dname, loc
+from emp02 e 
+    join dept02 d
+        on e.dno = d.dno
+where salary >= 2500;
+
+select * from v_join;
+
+-- employee, department 테이블의 부서별로 최소 월급을 받는 사원 이름, 직책, 부서명, 부서위치 
+    -- 20번 부서 제외, 최소 월급이 1500 이상인 사원 정보
+    -- 뷰 안에 쿼리를 저장하고 뷰를 실행해서 출력
+create view v_join2
+as
+select ename, job, dname, loc, d.dno
+from employee e
+    join department d
+        on e.dno = d.dno
+where salary in (
+        select min(salary) from employee        -- 부서별 최소 월급 
+        where dno <> 20 
+        group by dno 
+        having min(salary) > 900                      
+);
+
+select * from v_join2;
+
+
+
+-- view 주의사항
+
+create view v_join3
+as
+select ename, job, dname, loc, d.dno
+from employee e
+    join department d
+        on e.dno = d.dno
+where salary in (
+        select min(salary) from employee        -- 부서별 최소 월급 
+        where dno <> 20 
+        group by dno 
+        having min(salary) > 900                      
+)
+order by ename desc;
+
+select * from v_join3;
+
+---     view를 통해 값 삽입, 수정         -----
+
+create view v_test01
+as
+select eno, ename, dno
+from emp02;
+
+select *from v_test01;
+
+insert into v_test01 (eno, ename, dno)
+VALUES (8080,'kim',30);
+
+commit;
+
+-- 수정 -- 
+update v_test01
+set ename = 'LEE'
+where eno = 8080;
+
+-- 삭제 -- 
+delete v_test01
+where eno = '8080';
+
+-- v_test02 : insert가 안 됨 (dno 칼럼(- PK)이 명시되어 있지 않기 때문, update/delete 가능
+create view v_test02
+as
+select eno, ename, salary
+from emp02;
+
+insert into v_test02 (eno ,ename, salary)
+values (9090,'Park', 3500);
+
+delete v_test02
+where eno = '9090';
+commit;
+
+
+
+
+
+
+
 
 
 

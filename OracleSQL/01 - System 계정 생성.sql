@@ -16,20 +16,19 @@ FROM
 
 --  1. hr 계정 생성 : 오라클 12 버전 이상부터 계정 생성시 C##(계정) 
 
-CREATE user C##HR4 IDENTIFIED by 1234
+CREATE user C##HR10 IDENTIFIED by 1234
 default tablespace USERS
 temporary tablespace TEMP;
 
 --  2. 계정에 권한 부여하기 : connnect(접속), resource(객체 생성, 수정, 삭제)
 
 grant resource,
-connect to
-
-c##hr;
+connect to c##HR10;
+grant create view to c##HR10;
 
 --  3. 테이블 스페이스에서 사용량 할당.
 
-ALTER USER c##hr
+ALTER USER c##hr10
     QUOTA UNLIMITED ON users;
 
 -- 4. 계정 삭제

@@ -128,7 +128,7 @@ values( 8181, '홍길동', 'CLERK', 7788, sysdate, 1000, 100, 20 );
 
 update emp50
     set commission = 50
-    where commission is null;
+    where commission is null or commission = 0;
     
 update dept50
     set dname = '   운영부' , loc = '서울'
@@ -139,3 +139,4 @@ delete emp50
     
 commit; 
 
+select * from emp50;

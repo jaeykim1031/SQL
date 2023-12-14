@@ -22,7 +22,7 @@ where MOD( salary , 3) = '0';
 select to_char ( hiredate , 'YY-MON-DY')
 from employee;
 
--- 6. 올해 몇 일이 지났는지 출력 하시오. 현재 날짜에서 올해 1월 1일을 뺀 결과를 출력하고 TO_DATE 함수를 사용하여
+-- 6. 올해 며칠이 지났는지 출력 하시오. 현재 날짜에서 올해 1월 1일을 뺀 결과를 출력하고 TO_DATE 함수를 사용하여
    --데이터 형식을 일치 시키시오.
 select sysdate - to_date (230101,'YYMMDD' ) from dual;
    
@@ -52,7 +52,7 @@ from employee;
 SELECT rpad('801210-1', 14 , '*'), rpad('010-12', 13, '*')  from dual;
     
     
--- 12 자신의 생일에서 현재까지 몇개월 살았는지 ?  몇일 살았는지 출력   <== months_between ( 현재날짜, 생일)  : 개월수 
+-- 12 자신의 생일에서 현재까지 몇개월 살았는지 ?  며칠 살았는지 출력   <== months_between ( 현재날짜, 생일)  : 개월수 
         -- sysdate - 생일 (date) 
         
 SELECT months_between( to_date (961031, 'YYMMDD'), sysdate ) from dual;

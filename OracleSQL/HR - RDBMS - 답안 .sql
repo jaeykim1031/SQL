@@ -111,7 +111,6 @@ add CONSTRAINT PK_DEPT50_DNO PRIMARY key (dno);
 alter table emp50
 add CONSTRAINT FK_EMP50_DNO FOREIGN key (dno) REFERENCES dept50 (dno);
 
-
 /*
 10. 9번 문항에서 복사한 테이블 (EMP50, DEPT50) 테이블을 사용하여 아래 쿼리를 작성하시오. 
      - 모든 내용은 DataBase 에 영구히 저장 하시오. 

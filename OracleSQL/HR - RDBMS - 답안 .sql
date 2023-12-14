@@ -131,7 +131,7 @@ update emp50
     where commission is null;
     
 update dept50
-    set dname = '운영부' , loc = '서울'
+    set dname = '   운영부' , loc = '서울'
     where dno = 40;
 
 delete emp50

@@ -113,7 +113,7 @@ INSERT into dept60
 VALUES (50 , '영업', '부산', sysdate, 'aaa@ffff.com', 'qntks');
     
 INSERT into dept60
-VALUES (60 , '영업2', '부산', sysdate, 'aaa@ff111ff.com', 'qntks');
+VALUES (77 , '영업2', '부산', sysdate, 'aaa@ffff.com', 'ooioi');
     
 commit;
 
